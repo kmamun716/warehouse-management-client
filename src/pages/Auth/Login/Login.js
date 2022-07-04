@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useAuthState, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
+import Social from "../Social/Social";
+import './Login.css';
 
 const Login = () => {
     const [inputValue, setInputValue] = useState({
@@ -14,6 +16,7 @@ const Login = () => {
         user,
         error,
       ] = useSignInWithEmailAndPassword(auth);
+    const [signInWithGoogle] = useSignInWithGoogle(auth);
   const location = useLocation();
   const navigate = useNavigate();
   const [user1] = useAuthState(auth);
@@ -29,6 +32,9 @@ const Login = () => {
         [event.target.name]: event.target.value
     })
 };
+const handleGoogleSignIn=()=>{
+  signInWithGoogle();
+}
 const handleSubmit = event => {
     event.preventDefault();
     const {email, password} = inputValue;
@@ -69,6 +75,14 @@ const handleSubmit = event => {
       <p>
         Not have any account! <Link to="/register">Registration Here</Link>
       </p>
+      <div className="d-flex align-items-center justify-content-center single-line">
+        <div></div>
+        <p>Or</p>
+        <div></div>
+      </div>
+      <div>
+        <Social handleGoogleSignIn={handleGoogleSignIn}/>
+      </div>
     </div>
   );
 };

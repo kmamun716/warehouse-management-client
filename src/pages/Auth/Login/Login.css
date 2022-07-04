@@ -1,0 +1,9 @@
+.single-line div {
+  border: 1px solid black;
+  width: 40%;
+  height: 1px;
+  margin-top: -15px;
+}
+.single-line p {
+  padding: 0px 5px;
+}
