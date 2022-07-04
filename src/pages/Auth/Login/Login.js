@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useAuthState, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
 
@@ -8,14 +8,19 @@ const Login = () => {
     const [inputValue, setInputValue] = useState({
         email:"",
         password:""
-    })
+    });
+    const [
+        signInWithEmailAndPassword,
+        user,
+        error,
+      ] = useSignInWithEmailAndPassword(auth);
   const location = useLocation();
   const navigate = useNavigate();
-  const [user, loading, error] = useAuthState(auth);
+  const [user1] = useAuthState(auth);
 
   let from = location.state?.from?.pathname || "/";
 
-  if (user) {
+  if (user||user1) {
     navigate(from, { replace: true });
   }
   const handleChange = event =>{
@@ -26,7 +31,8 @@ const Login = () => {
 };
 const handleSubmit = event => {
     event.preventDefault();
-    console.log(inputValue)
+    const {email, password} = inputValue;
+    signInWithEmailAndPassword(email, password);
 }
   return (
     <div>
@@ -56,6 +62,9 @@ const handleSubmit = event => {
         <Button variant="primary" type="submit">
           Login
         </Button>
+        {
+            error ? <p className="text-danger my-2 fs-5">Error: {error.message}</p> : ''
+        }
       </Form>
       <p>
         Not have any account! <Link to="/register">Registration Here</Link>

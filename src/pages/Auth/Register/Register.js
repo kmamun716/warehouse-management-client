@@ -1,14 +1,26 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import {
+    useAuthState,
+    useCreateUserWithEmailAndPassword,
+    useUpdateProfile
+} from "react-firebase-hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
+import auth from "../../../firebase.init";
 
 const Register = () => {
   const [regUser, setRegUser] = useState({
     name: "",
+    email: "",
     password: "",
     confirmPassword: "",
   });
   const [checked, setChecked] = useState(false);
+  const [user1] = useAuthState(auth);
+  const navigate = useNavigate();
+  const [createUserWithEmailAndPassword, user, error] =
+    useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile] = useUpdateProfile(auth);
   const handleChange = (event) => {
     setRegUser({
       ...regUser,
@@ -17,14 +29,34 @@ const Register = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(regUser);
+    const { email, password } = regUser;
+    createUserWithEmailAndPassword(email, password);
+    event.target.reset();
   };
+
+  if (user) {
+    updateProfile({ displayName: regUser.name });
+    navigate("/");
+  } else if (user1) {
+    navigate("/");
+  }
+
   return (
     <div>
       <h3 className="text-decoration-underline text-center fw-light">
         Register Here
       </h3>
       <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            onChange={handleChange}
+            type="text"
+            name="name"
+            placeholder="Enter Your Name"
+          />
+        </Form.Group>
+
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -70,9 +102,10 @@ const Register = () => {
             label="Agree with terms and conditons"
           />
         </Form.Group>
-        <Button disabled={checked} variant="primary" type="submit">
+        <Button disabled={!checked} variant="primary" type="submit">
           Register
         </Button>
+        {error && <p>Error: {error.message}</p>}
       </Form>
       <p>
         Already Have an Account! <Link to="/login">Login Here</Link>

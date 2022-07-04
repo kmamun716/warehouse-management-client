@@ -1,3 +1,4 @@
+import { signOut } from 'firebase/auth';
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { LinkContainer } from "react-router-bootstrap";
@@ -7,7 +8,7 @@ import auth from "../../firebase.init";
 const Header = () => {
   const [user] = useAuthState(auth);
   const location = useLocation();
-
+    user&&console.log(user)
   return (
     <div>
       <nav>
@@ -23,9 +24,9 @@ const Header = () => {
                 </LinkContainer>
               )}
               {location.pathname !== "/login" && (
-                <LinkContainer to="/login">
-                  <Nav.Link>Login</Nav.Link>
-                </LinkContainer>
+                user?<span className="text-white mt-2" style={{cursor:"pointer"}} onClick={()=>signOut(auth)}>Logout</span>:<LinkContainer to="/login">
+                <Nav.Link>Login</Nav.Link>
+              </LinkContainer>
               )}
             </Nav>
           </Container>
