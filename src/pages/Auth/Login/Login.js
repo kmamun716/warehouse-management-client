@@ -34,6 +34,7 @@ const Login = () => {
 };
 const handleGoogleSignIn=()=>{
   signInWithGoogle();
+  navigate(from, { replace: true });
 }
 const handleSubmit = event => {
     event.preventDefault();
@@ -69,7 +70,7 @@ const handleSubmit = event => {
           Login
         </Button>
         {
-            error ? <p className="text-danger my-2 fs-5">Error: {error.message}</p> : ''
+            !error ? '' : <p className="text-danger my-2 fs-5">Error: {error.message}</p>
         }
       </Form>
       <p>
@@ -80,7 +81,7 @@ const handleSubmit = event => {
         <p>Or</p>
         <div></div>
       </div>
-      <div>
+      <div className="d-flex justify-content-center">
         <Social handleGoogleSignIn={handleGoogleSignIn}/>
       </div>
     </div>

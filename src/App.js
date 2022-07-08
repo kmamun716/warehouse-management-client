@@ -5,8 +5,8 @@ import Header from './components/Shared/Header';
 import Login from './pages/Auth/Login/Login';
 import Register from './pages/Auth/Register/Register';
 import Home from './pages/Home';
+import Inventory from './pages/Inventory/Inventory';
 import NotFound from './pages/NotFound/NotFound';
-import ProtectPage from './pages/Protect/ProtectPage';
 function App() {
   return (
     <div className="container">
@@ -15,8 +15,8 @@ function App() {
       <Route path='/' element={<Home/>} />
       <Route path='/register' element={<Register/>} />
       <Route path='/login' element={<Login/>} />
-      <Route path='/protect' element={<RequireAuth>
-        <ProtectPage/>
+      <Route path='/inventory/:id' element={<RequireAuth>
+        <Inventory/>
       </RequireAuth>} />
       <Route path="*" element={<NotFound/>} />
      </Routes>

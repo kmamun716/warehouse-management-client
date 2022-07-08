@@ -8,7 +8,6 @@ import auth from "../../firebase.init";
 const Header = () => {
   const [user] = useAuthState(auth);
   const location = useLocation();
-    user&&console.log(user)
   return (
     <div>
       <nav>
