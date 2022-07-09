@@ -1,14 +1,54 @@
-import React from 'react';
-import VegitableItems from '../../components/Home/VegitableItems';
-import useVegitables from '../../customHooks/useVegitables';
+import React, { useEffect, useState } from "react";
+import VegitableItems from "../../components/Home/VegitableItems";
 
 const Products = () => {
-    const [vegetables] = useVegitables();
-    return (
-        <div>
-            <VegitableItems vegetables={vegetables}/>
-        </div>
-    );
+  const [veg, setVeg] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [page, setPage] = useState(0);
+  const [itemPerPage, setItemPerPage] = useState(6);
+  useEffect(() => {
+    fetch("http://localhost:4000/productCount")
+      .then((res) => res.json())
+      .then((data) => {
+        const count = data.count;
+        const pages = Math.ceil(count / 6);
+        setPageCount(pages);
+      });
+  }, []);
+  useEffect(() => {
+    fetch(`http://localhost:4000/paginateItem?itemPerPage=${itemPerPage}&pageNumber=${page}`)
+      .then((res) => res.json())
+      .then((result) => setVeg(result));
+  }, [itemPerPage, page]);
+  return (
+    <div>
+      <VegitableItems vegetables={veg} />
+      <div className="d-flex justify-content-center mt-2">
+        <nav aria-label="...">
+          <ul className="pagination">
+            {[...Array(pageCount).keys()].map((number) => (
+              <li
+                key={number}
+                className={page === number ? "active page-item mx-1" : "page-item mx-2"}
+                onClick={() => setPage(number)}
+              >
+                <span className="page-link">{number + 1}</span>
+              </li>
+            ))}
+            <select
+              defaultValue={6}
+              onChange={(e) => setItemPerPage(e.target.value)}
+            >
+              <option value="6">6</option>
+              <option value="12">12</option>
+              <option value="18">18</option>
+              <option value="24">24</option>
+            </select>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  );
 };
 
 export default Products;
