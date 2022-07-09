@@ -6,6 +6,7 @@ import Login from './pages/Auth/Login/Login';
 import Register from './pages/Auth/Register/Register';
 import Home from './pages/Home';
 import Inventory from './pages/Inventory/Inventory';
+import ManageInventory from './pages/ManageInventory/ManageInventory';
 import NotFound from './pages/NotFound/NotFound';
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
       <Route path='/login' element={<Login/>} />
       <Route path='/inventory/:id' element={<RequireAuth>
         <Inventory/>
+      </RequireAuth>} />
+      <Route path='/manage' element={<RequireAuth>
+        <ManageInventory/>
       </RequireAuth>} />
       <Route path="*" element={<NotFound/>} />
      </Routes>

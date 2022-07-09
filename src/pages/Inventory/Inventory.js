@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Inventory = () => {
   const [vegetable, setVegetable] = useState({});
   const [updated, setUpdated] = useState(false);
+  const navigate = useNavigate();
   const { id } = useParams();
   const { name, price, description, img, qty } = vegetable;
   useEffect(() => {
@@ -18,7 +19,7 @@ const Inventory = () => {
     axios.put(`http://localhost:4000/vegetable/${id}`,{newQty})
       .then((data) => {
         console.log(data)
-        setUpdated(true)
+        setUpdated(!updated)
       });
   };
   return (
@@ -33,6 +34,9 @@ const Inventory = () => {
           <Card.Text>Quantity: {qty}</Card.Text>
           <Button onClick={handleClicked} variant="primary">
             Sell
+          </Button>  
+          <Button onClick={()=>navigate('/manage')} variant="info" className='mx-2'>
+            Manage Item
           </Button>
         </Card.Body>
       </Card>
