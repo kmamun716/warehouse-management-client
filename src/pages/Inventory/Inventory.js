@@ -1,23 +1,26 @@
+import axios from 'axios';
 import { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 const Inventory = () => {
   const [vegetable, setVegetable] = useState({});
+  const [updated, setUpdated] = useState(false);
   const { id } = useParams();
   const { name, price, description, img, qty } = vegetable;
   useEffect(() => {
     fetch(`http://localhost:4000/vegetable?id=${id}`)
       .then((res) => res.json())
       .then((result) => setVegetable(result));
-  }, [id]);
-  const handleClicked=()=>{
-    const quantity = qty-1;
-    fetch(``,{
-        method: 'UPDATE'
-    })
-    .then()
-  }
+  }, [id, updated]);
+  const handleClicked = () => {
+    const newQty = qty - 1;
+    axios.put(`http://localhost:4000/vegetable/${id}`,{newQty})
+      .then((data) => {
+        console.log(data)
+        setUpdated(true)
+      });
+  };
   return (
     <div>
       <Card className="text-center">
@@ -28,7 +31,9 @@ const Inventory = () => {
           <Card.Text>{description}</Card.Text>
           <Card.Text>Price: ${price}</Card.Text>
           <Card.Text>Quantity: {qty}</Card.Text>
-          <Button variant="primary">Sell</Button>
+          <Button onClick={handleClicked} variant="primary">
+            Sell
+          </Button>
         </Card.Body>
       </Card>
     </div>
