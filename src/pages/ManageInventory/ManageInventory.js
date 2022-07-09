@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
@@ -18,7 +19,8 @@ const ManageInventory = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(product);
+    axios.post('http://localhost:4000/addProduct',product)
+    .then(result=>console.log(result))
     e.target.reset();
   };
   return (
