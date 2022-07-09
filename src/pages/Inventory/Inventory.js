@@ -36,7 +36,7 @@ const Inventory = () => {
             Sell
           </Button>  
           <Button onClick={()=>navigate('/manage')} variant="info" className='mx-2'>
-            Manage Item
+            Add Item
           </Button>
         </Card.Body>
       </Card>

@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Inventory from './pages/Inventory/Inventory';
 import ManageInventory from './pages/ManageInventory/ManageInventory';
 import NotFound from './pages/NotFound/NotFound';
+import Products from './pages/Products/Products';
 function App() {
   return (
     <div className="container">
@@ -16,6 +17,7 @@ function App() {
       <Route path='/' element={<Home/>} />
       <Route path='/register' element={<Register/>} />
       <Route path='/login' element={<Login/>} />
+      <Route path='/vegetables' element={<Products/>} />
       <Route path='/inventory/:id' element={<RequireAuth>
         <Inventory/>
       </RequireAuth>} />
