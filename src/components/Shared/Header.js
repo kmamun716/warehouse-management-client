@@ -2,7 +2,7 @@ import { signOut } from 'firebase/auth';
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { LinkContainer } from "react-router-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 import auth from "../../firebase.init";
 
 const Header = () => {
@@ -27,6 +27,11 @@ const Header = () => {
                 <Nav.Link>Login</Nav.Link>
               </LinkContainer>
               )}
+              {
+                user?.email && <>
+                  <LinkContainer to="/myProduct"><Nav.Link>My Products</Nav.Link></LinkContainer>
+                </>
+              }
             </Nav>
           </Container>
         </Navbar>

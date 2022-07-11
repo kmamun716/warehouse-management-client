@@ -32,9 +32,9 @@ const Inventory = () => {
           <Card.Text>{description}</Card.Text>
           <Card.Text>Price: ${price}</Card.Text>
           <Card.Text>Quantity: {qty}</Card.Text>
-          <Button onClick={handleClicked} variant="primary">
+          <Button onClick={handleClicked} className="mx-2" variant="primary">
             Sell
-          </Button>  
+          </Button>   
           <Button onClick={()=>navigate('/manage')} variant="info" className='mx-2'>
             Add Item
           </Button>

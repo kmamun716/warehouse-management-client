@@ -7,6 +7,7 @@ import Register from './pages/Auth/Register/Register';
 import Home from './pages/Home';
 import Inventory from './pages/Inventory/Inventory';
 import ManageInventory from './pages/ManageInventory/ManageInventory';
+import MyProduct from './pages/MyProduct/MyProduct';
 import NotFound from './pages/NotFound/NotFound';
 import Products from './pages/Products/Products';
 function App() {
@@ -20,6 +21,9 @@ function App() {
       <Route path='/vegetables' element={<Products/>} />
       <Route path='/inventory/:id' element={<RequireAuth>
         <Inventory/>
+      </RequireAuth>} />
+      <Route path='/myProduct' element={<RequireAuth>
+        <MyProduct/>
       </RequireAuth>} />
       <Route path='/manage' element={<RequireAuth>
         <ManageInventory/>

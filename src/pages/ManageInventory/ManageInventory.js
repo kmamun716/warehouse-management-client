@@ -1,10 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const ManageInventory = () => {
+  const [user] = useAuthState(auth);
   const [product, setProduct] = useState({
     name: "",
+    email: user?.email,
     price: "",
     qty: "",
     supplier: "",
