@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import VegitableItems from "../../components/Home/VegitableItems";
 
-
 const Products = () => {
   const [veg, setVeg] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(0);
   const [itemPerPage, setItemPerPage] = useState(6);
   useEffect(() => {
-    fetch("http://localhost:4000/productCount")
+    fetch("https://warm-meadow-82274.herokuapp.com/productCount")
       .then((res) => res.json())
       .then((data) => {
         const count = data.count;
@@ -17,23 +16,29 @@ const Products = () => {
       });
   }, []);
   useEffect(() => {
-    fetch(`http://localhost:4000/paginateItem?itemPerPage=${itemPerPage}&pageNumber=${page}`)
+    fetch(
+      `https://warm-meadow-82274.herokuapp.com/paginateItem?itemPerPage=${itemPerPage}&pageNumber=${page}&searchQuery=false`
+    )
       .then((res) => res.json())
       .then((result) => setVeg(result));
   }, [itemPerPage, page]);
   return (
-    <div >
-      <VegitableItems vegetables={veg}/>
+    <div>
+      <VegitableItems vegetables={veg} />
       <div className="d-flex justify-content-center mt-2">
         <nav aria-label="...">
           <ul className="pagination">
             {[...Array(pageCount).keys()].map((number) => (
               <li
                 key={number}
-                className={page === number ? "active page-item mx-1" : "page-item mx-2"}
+                className={
+                  page === number ? "active page-item mx-1" : "page-item mx-2"
+                }
                 onClick={() => setPage(number)}
               >
-                <span className="page-link" style={{'cursor':'pointer'}}>{number + 1}</span>
+                <span className="page-link" style={{ cursor: "pointer" }}>
+                  {number + 1}
+                </span>
               </li>
             ))}
             <select

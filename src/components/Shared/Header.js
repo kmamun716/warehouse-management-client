@@ -16,7 +16,7 @@ const Header = () => {
             <LinkContainer to="/">
               <Navbar.Brand>Warehouse</Navbar.Brand>
             </LinkContainer>
-            <Nav className="me-auto">
+            <Nav className="me-auto g-5">
               {location.pathname !== "/register" && (
                 <LinkContainer to="/register">
                   <Nav.Link>Register</Nav.Link>
@@ -30,8 +30,10 @@ const Header = () => {
               {
                 user?.email && <>
                   <LinkContainer to="/myProduct"><Nav.Link>My Products</Nav.Link></LinkContainer>
+                  <LinkContainer to="/manage"><Nav.Link>Add Product</Nav.Link></LinkContainer>
                 </>
               }
+              <LinkContainer to="/blog"><Nav.Link>Blog</Nav.Link></LinkContainer>
             </Nav>
           </Container>
         </Navbar>

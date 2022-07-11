@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const useVegitables = ()=>{
     const [vegetables, setVegetables]= useState([]);
     useEffect(()=>{
-        fetch('http://localhost:4000/vegetables')
+        fetch('https://warm-meadow-82274.herokuapp.com/vegetables')
         .then(res=>res.json())
         .then(result=>setVegetables(result));
     },[])

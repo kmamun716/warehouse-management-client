@@ -10,13 +10,13 @@ const Inventory = () => {
   const { id } = useParams();
   const { name, price, description, img, qty } = vegetable;
   useEffect(() => {
-    fetch(`http://localhost:4000/vegetable?id=${id}`)
+    fetch(`https://warm-meadow-82274.herokuapp.com/vegetable?id=${id}`)
       .then((res) => res.json())
       .then((result) => setVegetable(result));
   }, [id, updated]);
   const handleClicked = () => {
     const newQty = qty - 1;
-    axios.put(`http://localhost:4000/vegetable/${id}`,{newQty})
+    axios.put(`https://warm-meadow-82274.herokuapp.com/vegetable/${id}`,{newQty})
       .then((data) => {
         console.log(data)
         setUpdated(!updated)

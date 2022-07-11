@@ -10,12 +10,21 @@ const MyProduct = () => {
   const [products, setProducts] = useState([]);
   const [deleted, setDeleted] = useState(false);
   useEffect(() => {
-    fetch(`http://localhost:4000/myProduct?email=${user?.email}`)
+    try{
+      fetch(`https://warm-meadow-82274.herokuapp.com/myProduct?email=${user?.email}`,{
+      headers:{
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    })
       .then((res) => res.json())
       .then((data) => setProducts(data));
+    } 
+    catch(error) {
+      console.log(error.response.status)
+    }
   }, [user, deleted]);
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:4000/product/${id}`, id).then((result) => {
+    axios.delete(`https://warm-meadow-82274.herokuapp.com/product/${id}`, id).then((result) => {
       console.log(result);
       setDeleted(true)
     });

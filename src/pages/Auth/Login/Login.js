@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
@@ -24,6 +25,7 @@ const Login = () => {
   let from = location.state?.from?.pathname || "/";
 
   if (user||user1) {
+
     navigate(from, { replace: true });
   }
   const handleChange = event =>{
@@ -40,6 +42,8 @@ const handleSubmit = event => {
     event.preventDefault();
     const {email, password} = inputValue;
     signInWithEmailAndPassword(email, password);
+    axios.post('https://warm-meadow-82274.herokuapp.com/login', {email})
+    .then(data=>localStorage.setItem('accessToken',data.data.token));
 }
   return (
     <div>

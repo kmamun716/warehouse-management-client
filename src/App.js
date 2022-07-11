@@ -4,6 +4,7 @@ import Footer from './components/Shared/Footer';
 import Header from './components/Shared/Header';
 import Login from './pages/Auth/Login/Login';
 import Register from './pages/Auth/Register/Register';
+import Blogs from './pages/Blogs/Blogs';
 import Home from './pages/Home';
 import Inventory from './pages/Inventory/Inventory';
 import ManageInventory from './pages/ManageInventory/ManageInventory';
@@ -18,6 +19,7 @@ function App() {
       <Route path='/' element={<Home/>} />
       <Route path='/register' element={<Register/>} />
       <Route path='/login' element={<Login/>} />
+      <Route path='/blog' element={<Blogs/>} />
       <Route path='/vegetables' element={<Products/>} />
       <Route path='/inventory/:id' element={<RequireAuth>
         <Inventory/>

@@ -23,14 +23,15 @@ const ManageInventory = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:4000/addProduct',product)
+    const url = 'https://warm-meadow-82274.herokuapp.com/addProduct';
+    axios.post(url,product)
     .then(result=>console.log(result))
     e.target.reset();
   };
   return (
     <div>
         <h3 className="text-center text-decoration-underline">Add Product</h3>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} encType='multipart/form-data'>
         <Form.Group className="mb-3" controlId="Name">
           <Form.Label>Name</Form.Label>
           <Form.Control
